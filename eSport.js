@@ -53,27 +53,78 @@ var setup = function(array5D)
         .attr("transform","translate(30,"+margins.top+")")
         .call(yAxis);
     
-    drawValues(array5D, xScale, yScale, cScale)
+    drawValue1(array5D, xScale, yScale, cScale)
+    drawValue2(array5D, xScale, yScale, cScale)
+    drawValue3(array5D, xScale, yScale, cScale)
+    drawValue4(array5D, xScale, yScale, cScale)
 }
 
 
 
-var drawValues = function(array5D, xScale, yScale, cScale){
-    var svg = d3.select("svg")
-    .attr("width", screen.width)
-    .attr("height", screen.height);
-    
-    svg.append("path")
-      .datum(array5D)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-width", 1.5)
-      .attr("d", d3.line()
-        .x(function(d){
-        return xScale(d.Year)
+var drawValue1 = function(array5D, xScale, yScale, cScale){
+    d3.select("#graph")
+        .append("path")
+        .datum(array5D)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1.5)
+    .attr("d", d3.line()
+          .x(function(d){
+          return xScale(d.Year)
     })
         .y(function(d) {
         var num = parseInt(d.FIFA_Revenue)
         return yScale(num);
+    }))
+}
+
+var drawValue2 = function(array5D, xScale, yScale, cScale){
+    d3.select("#graph")
+        .append("path")
+        .datum(array5D)
+        .attr("fill", "none")
+        .attr("stroke", "red")
+        .attr("stroke-width", 1.5)
+    .attr("d", d3.line()
+          .x(function(d){
+          return xScale(d.Year)
+    })
+        .y(function(d) {
+        var view = parseInt(d.Total_Viewers)
+        return yScale(view);
+    }))
+}
+
+var drawValue3 = function(array5D, xScale, yScale, cScale){
+    d3.select("#graph")
+        .append("path")
+        .datum(array5D)
+        .attr("fill", "none")
+        .attr("stroke", "purple")
+        .attr("stroke-width", 1.5)
+    .attr("d", d3.line()
+          .x(function(d){
+          return xScale(d.Year)
+    })
+        .y(function(d) {
+        var pool = parseInt(d.International_Prize_Pool)
+        return yScale(pool);
+    }))
+}
+
+var drawValue4 = function(array5D, xScale, yScale, cScale){
+    d3.select("#graph")
+        .append("path")
+        .datum(array5D)
+        .attr("fill", "none")
+        .attr("stroke", "green")
+        .attr("stroke-width", 1.5)
+    .attr("d", d3.line()
+          .x(function(d){
+          return xScale(d.Year)
+    })
+        .y(function(d) {
+        var eSports = parseInt(d.eSports_Global_Revenue)
+        return yScale(eSports);
     }))
 }
