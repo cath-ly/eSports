@@ -57,6 +57,7 @@ var setup = function(array5D)
     drawValue2(array5D, xScale, yScale, cScale)
     drawValue3(array5D, xScale, yScale, cScale)
     drawValue4(array5D, xScale, yScale, cScale)
+    drawValue5(array5D, xScale, yScale, cScale)
 }
 
 
@@ -126,5 +127,22 @@ var drawValue4 = function(array5D, xScale, yScale, cScale){
         .y(function(d) {
         var eSports = parseInt(d.eSports_Global_Revenue)
         return yScale(eSports);
+    }))
+}
+
+var drawValue5 = function(array5D, xScale, yScale, cScale){
+    d3.select("#graph")
+        .append("path")
+        .datum(array5D)
+        .attr("fill", "none")
+        .attr("stroke", "hotpink")
+        .attr("stroke-width", 1.5)
+    .attr("d", d3.line()
+          .x(function(d){
+          return xScale(d.Year)
+    })
+        .y(function(d) {
+        var sport = parseInt(d.Sports_Sponsorship_Revenue)
+        return yScale(sport);
     }))
 }
