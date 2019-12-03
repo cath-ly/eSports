@@ -12,7 +12,10 @@ var screen = {width: 1280, height: 720};
 var margins = {top: 30, right: 50, bottom: 50, left: 50};
 
 var fifa = function(d){
-   
+    d3.select("body")
+      .append("button")
+      .text("This is a button")
+      .on("click", function(){
     var svg = d3.select("svg");
         
      svg.append("circle")
@@ -27,7 +30,13 @@ var fifa = function(d){
             .style("top", (d3.event.pageY - 20) + "px")
             .select("#value")
             .text("Hey");
-         });
+         d3.select("#tooltip")
+           .classed("hidden", false)
+         })
+        .on("mouseout", function(){
+            d3.select("#tooltip")
+              .classed("hidden", true)
+        });
 
     svg.append("circle")
         .attr("class", "circle")
@@ -42,17 +51,15 @@ var fifa = function(d){
         .attr("cy", 435)
         .attr("r", 5)
         .attr("fill", "black");
-}
+      }    
+)}
+
 
 var setup = function(array5D)
 {
     var svg = d3.select("svg")
     .attr("width", screen.width)
     .attr("height", screen.height);
-    
-    d3.select("body")
-        .append("button")
-        .text("This is a button");
     
     svg.append("g")
     .attr("id", "graph")
@@ -160,6 +167,9 @@ var drawValue2 = function(array5D, xScale, yScale, cScale){
     d3.select("#graph")
         .append("path")
         .datum(array5D)
+      /*.on("click", function(data){
+            setup2(data);
+        })*/
         .attr("fill", "none")
         .attr("stroke", "red")
         .attr("stroke-width", 1.5)
@@ -222,15 +232,6 @@ var drawValue5 = function(array5D, xScale, yScale, cScale){
         var sport = parseInt(d.Sports_Sponsorship_Revenue)
         return yScale(sport);
     }))
-  /*  .on("mouseover", function(d) {
-    var xPosition = d3.select(Year).attr("x") + xScale.bandwidth() / 2; 
-    var yPosition = d3.select(sport).attr("y") / 2 + h / 2;
-    d3.select("#tooltip")
-      .style("left", xPosition + "px")
-      .style("top", yPosition + "px")
-      .select("#value")
-      .text(d);
-})*/
 }
 
 
