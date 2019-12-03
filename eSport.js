@@ -14,22 +14,44 @@ var margins = {top: 30, right: 50, bottom: 50, left: 50};
 var fifa = function(d){
     d3.select("body")
       .append("button")
-      .text("This is a button")
+      .attr("id", "fifa")
+      .text("FIFA Revenue")
       .on("click", function(){
+    
     var svg = d3.select("svg");
         
-     svg.append("circle")
+    svg.append("circle")
+      .attr("class", "circle")
+      .attr("cx", 287)
+      .attr("cy", 642)
+      .attr("r", 5)
+      .attr("fill", "black")
+      .on("mouseover", function(d) {
+        d3.select("#tooltip")
+          .style("left", (d3.event.pageX + 20) + "px")
+          .style("top", (d3.event.pageY - 20) + "px")
+          .select("p")
+          .text("Huge Decrease in revenue due to the scandals within the FIFA organization and scams within Brazil itself");
+        d3.select("#tooltip")
+          .classed("hidden", false)
+         })
+      .on("mouseout", function(){
+        d3.select("#tooltip")
+          .classed("hidden", true)
+    });
+
+    svg.append("circle")
         .attr("class", "circle")
-        .attr("cx", 287)
-        .attr("cy", 642)
+        .attr("cx", 760)
+        .attr("cy", 630)
         .attr("r", 5)
         .attr("fill", "black")
         .on("mouseover", function(d) {
         d3.select("#tooltip")
             .style("left", (d3.event.pageX + 20) + "px")
             .style("top", (d3.event.pageY - 20) + "px")
-            .select("#value")
-            .text("Hey");
+            .select("p")
+            .text("New president began reforming FIFA from the inside and sponsors want to support them");
          d3.select("#tooltip")
            .classed("hidden", false)
          })
@@ -37,23 +59,61 @@ var fifa = function(d){
             d3.select("#tooltip")
               .classed("hidden", true)
         });
-
-    svg.append("circle")
-        .attr("class", "circle")
-        .attr("cx", 760)
-        .attr("cy", 630)
-        .attr("r", 5)
-        .attr("fill", "black");
     
     svg.append("circle")
         .attr("class", "circle")
         .attr("cx", 992)
         .attr("cy", 435)
         .attr("r", 5)
-        .attr("fill", "black");
+        .attr("fill", "black")
+        .on("mouseover", function() {
+        d3.select("#tooltip")
+            .style("left", (d3.event.pageX + 20) + "px")
+            .style("top", (d3.event.pageY - 20) + "px")
+            .select("p")
+            .text("World Cup Sponsorships return with the news of new president and begins to return back with FIFA organization");
+         d3.select("#tooltip")
+           .classed("hidden", false)
+         })
+        .on("mouseout", function(){
+            d3.select("#tooltip")
+              .classed("hidden", true)
+        });
       }    
 )}
 
+var totalV = function(tot){
+    d3.select("body")
+      .append("button")
+      .attr("id", "total")
+      .text("Total Viewer")
+      .on("click", function(){
+        d3.selectAll("circle").remove();
+        var svg = d3.select("svg");
+        
+        svg.append("circle")
+            .attr("class", "circle")
+            .attr("cx", 760)
+            .attr("cy", 430)
+            .attr("r", 5)
+            .attr("fill", "red")
+            .on("mouseover", function() {
+                d3.select("#tooltip")
+                  .style("left", (d3.event.pageX + 20) + "px")
+                  .style("top", (d3.event.pageY - 20) + "px")
+                  .select("p")
+                  .text("Ninja Collabed with Drake and Travis Scott in Fortnite");
+            
+            d3.select("#tooltip")
+              .classed("hidden", false)
+         })
+        .on("mouseout", function(){
+            d3.select("#tooltip")
+              .classed("hidden", true)
+        });
+}
+          )
+}
 
 var setup = function(array5D)
 {
@@ -77,6 +137,7 @@ var setup = function(array5D)
         .range([height, 0]);
     
     fifa(array5D);
+    totalV(array5D);
 
     var cScale = d3.scaleOrdinal(d3.schemeTableau10)
     
