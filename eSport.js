@@ -11,11 +11,48 @@ function(yikes){
 var screen = {width: 1280, height: 720};
 var margins = {top: 30, right: 50, bottom: 50, left: 50};
 
+var fifa = function(d){
+   
+    var svg = d3.select("svg");
+        
+     svg.append("circle")
+        .attr("class", "circle")
+        .attr("cx", 287)
+        .attr("cy", 642)
+        .attr("r", 5)
+        .attr("fill", "black")
+        .on("mouseover", function(d) {
+        d3.select("#tooltip")
+            .style("left", (d3.event.pageX + 20) + "px")
+            .style("top", (d3.event.pageY - 20) + "px")
+            .select("#value")
+            .text("Hey");
+         });
+
+    svg.append("circle")
+        .attr("class", "circle")
+        .attr("cx", 760)
+        .attr("cy", 630)
+        .attr("r", 5)
+        .attr("fill", "black");
+    
+    svg.append("circle")
+        .attr("class", "circle")
+        .attr("cx", 992)
+        .attr("cy", 435)
+        .attr("r", 5)
+        .attr("fill", "black");
+}
+
 var setup = function(array5D)
 {
     var svg = d3.select("svg")
     .attr("width", screen.width)
     .attr("height", screen.height);
+    
+    d3.select("body")
+        .append("button")
+        .text("This is a button");
     
     svg.append("g")
     .attr("id", "graph")
@@ -31,10 +68,12 @@ var setup = function(array5D)
     var yScale = d3.scaleLinear()
         .domain([-100, 500])
         .range([height, 0]);
+    
+    fifa(array5D);
 
     var cScale = d3.scaleOrdinal(d3.schemeTableau10)
     
-    var xAxis = d3.axisBottom(xScale)
+    var xAxis = d3.axisBottom(xScale).ticks(5)
     var yAxis = d3.axisLeft(yScale)
     
     d3.select("svg")
@@ -59,30 +98,6 @@ var setup = function(array5D)
     drawValue4(array5D, xScale, yScale, cScale);
     drawValue5(array5D, xScale, yScale, cScale);
     
-
-     svg.append("circle")
-        .attr("class", "circle")
-        .attr("cx", 287)
-        .attr("cy", 642)
-        .attr("r", 5)
-        .attr("fill", "black")
-        .on("mouseover", function(d){
-            return d.FIFANotes; //want to use tooltips
-    });
-  
-    svg.append("circle")
-        .attr("class", "circle")
-        .attr("cx", 760)
-        .attr("cy", 630)
-        .attr("r", 5)
-        .attr("fill", "black");
-    
-    svg.append("circle")
-        .attr("class", "circle")
-        .attr("cx", 992)
-        .attr("cy", 435)
-        .attr("r", 5)
-        .attr("fill", "black");
     
     svg.append("circle")
         .attr("class", "circle")
@@ -97,7 +112,7 @@ var drawLegend = function(array5D, cScale){
     d3.select("svg")
       .append("g")
       .attr("id", "legend")
-      .attr("transform", "translate(" +(screen.width-210)+"," + (margins.top)+")");
+      .attr("transform", "translate(" +(screen.width-1200)+"," + (margins.top)+")");
     
     var gs = d3.select("#legend")
         .selectAll("g")
@@ -131,9 +146,9 @@ var drawValue1 = function(array5D, xScale, yScale, cScale){
         .attr("fill", "none")
         .attr("stroke", "steelblue")
         .attr("stroke-width", 1.5)
-    .attr("d", d3.line()
+        .attr("d", d3.line()
           .x(function(d){
-          return xScale(d.Year)
+            return xScale(d.Year)
     })
         .y(function(d) {
         var num = parseInt(d.FIFA_Revenue)
@@ -148,9 +163,9 @@ var drawValue2 = function(array5D, xScale, yScale, cScale){
         .attr("fill", "none")
         .attr("stroke", "red")
         .attr("stroke-width", 1.5)
-    .attr("d", d3.line()
+        .attr("d", d3.line()
           .x(function(d){
-          return xScale(d.Year)
+            return xScale(d.Year)
     })
         .y(function(d) {
         var view = parseInt(d.Total_Viewers)
@@ -165,9 +180,9 @@ var drawValue3 = function(array5D, xScale, yScale, cScale){
         .attr("fill", "none")
         .attr("stroke", "purple")
         .attr("stroke-width", 1.5)
-    .attr("d", d3.line()
+        .attr("d", d3.line()
           .x(function(d){
-          return xScale(d.Year)
+            return xScale(d.Year)
     })
         .y(function(d) {
         var pool = parseInt(d.International_Prize_Pool)
@@ -182,9 +197,9 @@ var drawValue4 = function(array5D, xScale, yScale, cScale){
         .attr("fill", "none")
         .attr("stroke", "green")
         .attr("stroke-width", 1.5)
-    .attr("d", d3.line()
+        .attr("d", d3.line()
           .x(function(d){
-          return xScale(d.Year)
+            return xScale(d.Year)
     })
         .y(function(d) {
         var eSports = parseInt(d.eSports_Global_Revenue)
@@ -199,10 +214,10 @@ var drawValue5 = function(array5D, xScale, yScale, cScale){
         .attr("fill", "none")
         .attr("stroke", "hotpink")
         .attr("stroke-width", 1.5)
-    .attr("d", d3.line()
+        .attr("d", d3.line()
           .x(function(d){
-          return xScale(d.Year)
-    })
+            return xScale(d.Year)
+        })
         .y(function(d) {
         var sport = parseInt(d.Sports_Sponsorship_Revenue)
         return yScale(sport);
@@ -217,5 +232,6 @@ var drawValue5 = function(array5D, xScale, yScale, cScale){
       .text(d);
 })*/
 }
+
 
 var spo = [{name: "FIFA Revenue", color:"steelBlue"}, {name: "Total Viewers", color:"red"}, {name: "International Prize Pool", color:"purple"}, {name: "eSports Global Revenue", color:"green"}, {name: "Sports Sponsorship Revenue", color:"hotpink"}];
