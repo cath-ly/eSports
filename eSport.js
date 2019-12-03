@@ -58,6 +58,39 @@ var setup = function(array5D)
     drawValue3(array5D, xScale, yScale, cScale);
     drawValue4(array5D, xScale, yScale, cScale);
     drawValue5(array5D, xScale, yScale, cScale);
+    
+
+     svg.append("circle")
+        .attr("class", "circle")
+        .attr("cx", 287)
+        .attr("cy", 642)
+        .attr("r", 5)
+        .attr("fill", "black")
+        .on("mouseover", function(d){
+            return d.FIFANotes; //want to use tooltips
+    });
+  
+    svg.append("circle")
+        .attr("class", "circle")
+        .attr("cx", 760)
+        .attr("cy", 630)
+        .attr("r", 5)
+        .attr("fill", "black");
+    
+    svg.append("circle")
+        .attr("class", "circle")
+        .attr("cx", 992)
+        .attr("cy", 435)
+        .attr("r", 5)
+        .attr("fill", "black");
+    
+    svg.append("circle")
+        .attr("class", "circle")
+        .attr("cx", 50)
+        .attr("cy", 562)
+        .attr("r", 5)
+        .attr("fill", "purple");
+        
 }
 
 var drawLegend = function(array5D, cScale){
@@ -174,7 +207,7 @@ var drawValue5 = function(array5D, xScale, yScale, cScale){
         var sport = parseInt(d.Sports_Sponsorship_Revenue)
         return yScale(sport);
     }))
-    .on("mouseover", function(d) {
+  /*  .on("mouseover", function(d) {
     var xPosition = d3.select(Year).attr("x") + xScale.bandwidth() / 2; 
     var yPosition = d3.select(sport).attr("y") / 2 + h / 2;
     d3.select("#tooltip")
@@ -182,6 +215,7 @@ var drawValue5 = function(array5D, xScale, yScale, cScale){
       .style("top", yPosition + "px")
       .select("#value")
       .text(d);
-})
+})*/
 }
+
 var spo = [{name: "FIFA Revenue", color:"steelBlue"}, {name: "Total Viewers", color:"red"}, {name: "International Prize Pool", color:"purple"}, {name: "eSports Global Revenue", color:"green"}, {name: "Sports Sponsorship Revenue", color:"hotpink"}];
