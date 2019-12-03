@@ -52,15 +52,44 @@ var setup = function(array5D)
         .attr("id", "yAxis")
         .attr("transform","translate(30,"+margins.top+")")
         .call(yAxis);
-    
-    drawValue1(array5D, xScale, yScale, cScale)
-    drawValue2(array5D, xScale, yScale, cScale)
-    drawValue3(array5D, xScale, yScale, cScale)
-    drawValue4(array5D, xScale, yScale, cScale)
-    drawValue5(array5D, xScale, yScale, cScale)
+    drawLegend(array5D, cScale);
+    drawValue1(array5D, xScale, yScale, cScale);
+    drawValue2(array5D, xScale, yScale, cScale);
+    drawValue3(array5D, xScale, yScale, cScale);
+    drawValue4(array5D, xScale, yScale, cScale);
+    drawValue5(array5D, xScale, yScale, cScale);
 }
 
-
+var drawLegend = function(array5D, cScale){
+    d3.select("svg")
+      .append("g")
+      .attr("id", "legend")
+      .attr("transform", "translate(" +(screen.width-210)+"," + (margins.top)+")");
+    
+    var gs = d3.select("#legend")
+        .selectAll("g")
+        .data(spo)
+        .enter()
+        .append("g")
+        .attr("fill", function(ar){
+            return ar.color
+        })
+        .attr("transform", function(ar, i){
+            return "translate(0,"+(i*14)+")";
+        })
+    
+    gs.append("rect")
+      .attr("width", 10)
+      .attr("height", 10);
+    
+    gs.append("text")
+      .text(function(ar){
+        return ar.name;
+    })
+      .attr("x", 15)
+      .attr("y", 10)
+      .attr("fill", "black")
+}
 
 var drawValue1 = function(array5D, xScale, yScale, cScale){
     d3.select("#graph")
@@ -145,4 +174,14 @@ var drawValue5 = function(array5D, xScale, yScale, cScale){
         var sport = parseInt(d.Sports_Sponsorship_Revenue)
         return yScale(sport);
     }))
+    .on("mouseover", function(d) {
+    var xPosition = d3.select(Year).attr("x") + xScale.bandwidth() / 2; 
+    var yPosition = d3.select(sport).attr("y") / 2 + h / 2;
+    d3.select("#tooltip")
+      .style("left", xPosition + "px")
+      .style("top", yPosition + "px")
+      .select("#value")
+      .text(d);
+})
 }
+var spo = [{name: "FIFA Revenue", color:"steelBlue"}, {name: "Total Viewers", color:"red"}, {name: "International Prize Pool", color:"purple"}, {name: "eSports Global Revenue", color:"green"}, {name: "Sports Sponsorship Revenue", color:"hotpink"}];
