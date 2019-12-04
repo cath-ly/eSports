@@ -12,7 +12,7 @@ var screen = {width: 1280, height: 720};
 var margins = {top: 30, right: 50, bottom: 50, left: 50};
 
 var fifa = function(d){
-    d3.select("body")
+   d3.select("#button")
       .append("button")
       .attr("id", "fifa")
       .text("FIFA Revenue")
@@ -84,7 +84,7 @@ var fifa = function(d){
 )}
 
 var inter = function(po){
-    d3.select("body")
+    d3.select("#button")
       .append("button")
       .attr("id", "inter")
       .text("International Tournament Pool")
@@ -143,7 +143,7 @@ var inter = function(po){
             .attr("fill", "purple")
             .on("mouseover", function() {
                 d3.select("#tooltip")
-                  .style("left", (d3.event.pageX - 20) + "px")
+                  .style("left", (d3.event.pageX - 200) + "px")
                   .style("top", (d3.event.pageY + 20) + "px")
                   .select("p")
                   .text("Notice how the gap doubled in revenue due to to popularity of tournaments!");
@@ -160,7 +160,7 @@ var inter = function(po){
 
         
 var totalV = function(tot){
-    d3.select("body")
+    d3.select("#button")
       .append("button")
       .attr("id", "total")
       .text("Total Viewer")
@@ -193,9 +193,9 @@ var totalV = function(tot){
 }
 
 var eSpo = function(e){
-    d3.select("body")
+    d3.select("#button")
       .append("button")
-      .attr("id", "total")
+      .attr("id", "eSpo")
       .text("eSports Global Revenue")
       .on("click", function(){
         d3.selectAll("circle").remove();
@@ -206,7 +206,7 @@ var eSpo = function(e){
             .attr("cx", 287)
             .attr("cy", 490)
             .attr("r", 5)
-            .attr("fill", "red")
+            .attr("fill", "green")
             .on("mouseover", function() {
                 d3.select("#tooltip")
                   .style("left", (d3.event.pageX + 20) + "px")
@@ -221,14 +221,14 @@ var eSpo = function(e){
             d3.select("#tooltip")
               .classed("hidden", true)
         });
-}
-          )
+    })
+          
 }
 
-var eSpo = function(e){
-    d3.select("body")
+var spot = function(sp){
+    d3.select("#button")
       .append("button")
-      .attr("id", "total")
+      .attr("id", "spot")
       .text("NA Sports Sponsorship")
       .on("click", function(){
         d3.selectAll("circle").remove();
@@ -237,13 +237,13 @@ var eSpo = function(e){
         svg.append("circle")
             .attr("class", "circle")
             .attr("cx", 1230)
-            .attr("cy", 575)
+            .attr("cy", 541)
             .attr("r", 5)
-            .attr("fill", "red")
+            .attr("fill", "hotpink")
             .on("mouseover", function() {
                 d3.select("#tooltip")
-                  .style("left", (d3.event.pageX + 20) + "px")
-                  .style("top", (d3.event.pageY - 20) + "px")
+                  .style("left", (d3.event.pageX - 200) + "px")
+                  .style("top", (d3.event.pageY + 20) + "px")
                   .select("p")
                   .text("Only a 22% increase");
             
@@ -260,6 +260,9 @@ var eSpo = function(e){
 
 var setup = function(array5D)
 {
+    d3.selectAll("#buttons *").remove();
+    d3.selectAll("p *").remove();
+    
     var svg = d3.select("svg")
     .attr("width", screen.width)
     .attr("height", screen.height);
@@ -283,6 +286,7 @@ var setup = function(array5D)
     totalV(array5D);
     inter(array5D);
     eSpo(array5D);
+    spot(array5D);
 
     var cScale = d3.scaleOrdinal(d3.schemeTableau10)
     
@@ -310,6 +314,60 @@ var setup = function(array5D)
     drawValue3(array5D, xScale, yScale, cScale);
     drawValue4(array5D, xScale, yScale, cScale);
     drawValue5(array5D, xScale, yScale, cScale);
+}
+
+var setup2 = function(array5D){
+    d3.select("body")
+      .append("p")
+      .attr("id", "p")
+      .text("Here is the change in FIFA Revenue through the years in Millions");
+    
+    d3.select("#tooltip")
+      .classed("hidden", true);
+    d3.selectAll("#button *").remove();
+    d3.selectAll("p *").remove();
+    var svg = d3.select("svg")
+    .attr("width", screen.width)
+    .attr("height", screen.height);
+    
+    svg.append("g")
+    .attr("id", "graph")
+    .attr("transform", "translate("+margins.left+ "," +margins.top+")");
+    
+    var width = screen.width - margins.left - margins.right;
+    var height = screen.height - margins.top - margins.bottom;
+    
+    var xScale = d3.scaleLinear()
+        .domain([2014, 2019])
+        .range([0, width]);
+    
+    var yScale = d3.scaleLinear()
+        .domain([0, 5000])
+        .range([height, 0]);
+    
+    var cScale = d3.scaleOrdinal(d3.schemeTableau10)
+    
+    var xAxis = d3.axisBottom(xScale).ticks(5)
+    var yAxis = d3.axisLeft(yScale)
+    
+    d3.select("svg")
+        .append("g")
+        .classed("axis", true);
+    
+    d3.select(".axis")
+        .append("g")
+        .attr("id", "xAxis")
+        .attr("transform", "translate("+margins.left+","+(margins.top+height)+")")
+        .call(xAxis);
+    
+    d3.select(".axis")
+        .append("g")
+        .attr("id", "yAxis")
+        .attr("transform","translate(40,"+margins.top+")")
+        .call(yAxis);
+    
+    drawFifa(array5D, xScale, yScale, cScale);
+    
 }
 
 var drawLegend = function(array5D, cScale){
@@ -347,9 +405,13 @@ var drawValue1 = function(array5D, xScale, yScale, cScale){
     d3.select("#graph")
         .append("path")
         .datum(array5D)
+        .on("click", function(data){
+            d3.selectAll("svg *").remove();
+            setup2(data);
+        })
         .attr("fill", "none")
         .attr("stroke", "steelblue")
-        .attr("stroke-width", 1.5)
+        .attr("stroke-width", 3)
         .attr("d", d3.line()
           .x(function(d){
             return xScale(d.Year)
@@ -358,18 +420,29 @@ var drawValue1 = function(array5D, xScale, yScale, cScale){
         var num = parseInt(d.FIFA_Revenue)
         return yScale(num);
     }))
+        .on("mouseover", function() {
+                d3.select("#tooltip")
+                  .style("left", (d3.event.pageX + 20) + "px")
+                  .style("top", (d3.event.pageY - 20) + "px")
+                  .select("p")
+                  .text("Click here for more info");
+            
+            d3.select("#tooltip")
+              .classed("hidden", false)
+         })
+        .on("mouseout", function(){
+            d3.select("#tooltip")
+              .classed("hidden", true)
+        });
 }
 
 var drawValue2 = function(array5D, xScale, yScale, cScale){
     d3.select("#graph")
         .append("path")
         .datum(array5D)
-      /*.on("click", function(data){
-            setup2(data);
-        })*/
         .attr("fill", "none")
         .attr("stroke", "red")
-        .attr("stroke-width", 1.5)
+        .attr("stroke-width", 3)
         .attr("d", d3.line()
           .x(function(d){
             return xScale(d.Year)
@@ -386,7 +459,7 @@ var drawValue3 = function(array5D, xScale, yScale, cScale){
         .datum(array5D)
         .attr("fill", "none")
         .attr("stroke", "purple")
-        .attr("stroke-width", 1.5)
+        .attr("stroke-width", 3)
         .attr("d", d3.line()
           .x(function(d){
             return xScale(d.Year)
@@ -403,7 +476,7 @@ var drawValue4 = function(array5D, xScale, yScale, cScale){
         .datum(array5D)
         .attr("fill", "none")
         .attr("stroke", "green")
-        .attr("stroke-width", 1.5)
+        .attr("stroke-width", 3)
         .attr("d", d3.line()
           .x(function(d){
             return xScale(d.Year)
@@ -420,7 +493,7 @@ var drawValue5 = function(array5D, xScale, yScale, cScale){
         .datum(array5D)
         .attr("fill", "none")
         .attr("stroke", "hotpink")
-        .attr("stroke-width", 1.5)
+        .attr("stroke-width", 3)
         .attr("d", d3.line()
           .x(function(d){
             return xScale(d.Year)
@@ -431,5 +504,34 @@ var drawValue5 = function(array5D, xScale, yScale, cScale){
     }))
 }
 
+var drawFifa = function(array5D, xScale, yScale, cScale){
+    
+    d3.selectAll("#button *").remove();
+    d3.select("#button")
+      .append("button")
+      .attr("id", "return")
+      .text("Return")
+      .on("click", function(data){
+        d3.selectAll("svg *").remove();
+        d3.select("#return").remove();
+        d3.selectAll("#p").remove();
+        setup(array5D);
+   })
+    d3.select("#graph")
+        .append("path")
+        .datum(array5D)
+        .attr("fill", "none")
+        .attr("stroke", "hotpink")
+        .attr("stroke-width", 3)
+        .attr("d", d3.line()
+          .x(function(d){
+            return xScale(d.Year)
+        })
+        .y(function(d) {
+        var sport = parseFloat(d.Fifa);
+        console.log(sport);
+        return yScale(sport);
+    }))
+}
 
 var spo = [{name: "FIFA Revenue", color:"steelBlue"}, {name: "Total Viewers", color:"red"}, {name: "International Prize Pool", color:"purple"}, {name: "eSports Global Revenue", color:"green"}, {name: "Sports Sponsorship Revenue", color:"hotpink"}];
