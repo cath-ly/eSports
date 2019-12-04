@@ -18,14 +18,15 @@ var fifa = function(d){
       .text("FIFA Revenue")
       .on("click", function(){
     
-    var svg = d3.select("svg");
+        d3.selectAll("circle").remove();
+        var svg = d3.select("svg");
         
-    svg.append("circle")
-      .attr("class", "circle")
-      .attr("cx", 287)
-      .attr("cy", 642)
-      .attr("r", 5)
-      .attr("fill", "black")
+        svg.append("circle") //2015
+           .attr("class", "circle")
+           .attr("cx", 287)
+           .attr("cy", 642)
+           .attr("r", 5)
+           .attr("fill", "black")
       .on("mouseover", function(d) {
         d3.select("#tooltip")
           .style("left", (d3.event.pageX + 20) + "px")
@@ -40,7 +41,7 @@ var fifa = function(d){
           .classed("hidden", true)
     });
 
-    svg.append("circle")
+    svg.append("circle") //2017
         .attr("class", "circle")
         .attr("cx", 760)
         .attr("cy", 630)
@@ -60,7 +61,7 @@ var fifa = function(d){
               .classed("hidden", true)
         });
     
-    svg.append("circle")
+    svg.append("circle") //2018
         .attr("class", "circle")
         .attr("cx", 992)
         .attr("cy", 435)
@@ -82,6 +83,82 @@ var fifa = function(d){
       }    
 )}
 
+var inter = function(po){
+    d3.select("body")
+      .append("button")
+      .attr("id", "inter")
+      .text("International Tournament Pool")
+      .on("click", function(){
+    
+        d3.selectAll("circle").remove();
+        var svg = d3.select("svg");
+        
+        svg.append("circle")
+            .attr("class", "circle")
+            .attr("cx", 54)
+            .attr("cy", 562)
+            .attr("r", 5)
+            .attr("fill", "purple")
+            .on("mouseover", function() {
+                d3.select("#tooltip")
+                  .style("left", (d3.event.pageX + 20) + "px")
+                  .style("top", (d3.event.pageY - 20) + "px")
+                  .select("p")
+                  .text("Quick note this year International pool increased from 2.8m to 10.8m");
+            
+            d3.select("#tooltip")
+              .classed("hidden", false)
+         })
+        .on("mouseout", function(){
+            d3.select("#tooltip")
+              .classed("hidden", true)
+        });
+        
+        svg.append("circle")
+            .attr("class", "circle")
+            .attr("cx", 287)
+            .attr("cy", 490)
+            .attr("r", 5)
+            .attr("fill", "purple")
+            .on("mouseover", function() {
+                d3.select("#tooltip")
+                  .style("left", (d3.event.pageX + 20) + "px")
+                  .style("top", (d3.event.pageY - 20) + "px")
+                  .select("p")
+                  .text("Another Jump of 8m in the pool");
+            
+            d3.select("#tooltip")
+              .classed("hidden", false)
+         })
+        .on("mouseout", function(){
+            d3.select("#tooltip")
+              .classed("hidden", true)
+        });
+        
+        svg.append("circle")
+            .attr("class", "circle")
+            .attr("cx", 1230)
+            .attr("cy", 335)
+            .attr("r", 5)
+            .attr("fill", "purple")
+            .on("mouseover", function() {
+                d3.select("#tooltip")
+                  .style("left", (d3.event.pageX - 20) + "px")
+                  .style("top", (d3.event.pageY + 20) + "px")
+                  .select("p")
+                  .text("Notice how the gap doubled in revenue due to to popularity of tournaments!");
+            
+            d3.select("#tooltip")
+              .classed("hidden", false)
+         })
+        .on("mouseout", function(){
+            d3.select("#tooltip")
+              .classed("hidden", true)
+        });
+    })
+}
+
+        
 var totalV = function(tot){
     d3.select("body")
       .append("button")
@@ -103,6 +180,72 @@ var totalV = function(tot){
                   .style("top", (d3.event.pageY - 20) + "px")
                   .select("p")
                   .text("Ninja Collabed with Drake and Travis Scott in Fortnite");
+            
+            d3.select("#tooltip")
+              .classed("hidden", false)
+         })
+        .on("mouseout", function(){
+            d3.select("#tooltip")
+              .classed("hidden", true)
+        });
+}
+          )
+}
+
+var eSpo = function(e){
+    d3.select("body")
+      .append("button")
+      .attr("id", "total")
+      .text("eSports Global Revenue")
+      .on("click", function(){
+        d3.selectAll("circle").remove();
+        var svg = d3.select("svg");
+        
+        svg.append("circle")
+            .attr("class", "circle")
+            .attr("cx", 287)
+            .attr("cy", 490)
+            .attr("r", 5)
+            .attr("fill", "red")
+            .on("mouseover", function() {
+                d3.select("#tooltip")
+                  .style("left", (d3.event.pageX + 20) + "px")
+                  .style("top", (d3.event.pageY - 20) + "px")
+                  .select("p")
+                  .text("Approximate increase of 100%");
+            
+            d3.select("#tooltip")
+              .classed("hidden", false)
+         })
+        .on("mouseout", function(){
+            d3.select("#tooltip")
+              .classed("hidden", true)
+        });
+}
+          )
+}
+
+var eSpo = function(e){
+    d3.select("body")
+      .append("button")
+      .attr("id", "total")
+      .text("NA Sports Sponsorship")
+      .on("click", function(){
+        d3.selectAll("circle").remove();
+        var svg = d3.select("svg");
+        
+        svg.append("circle")
+            .attr("class", "circle")
+            .attr("cx", 1230)
+            .attr("cy", 575)
+            .attr("r", 5)
+            .attr("fill", "red")
+            .on("mouseover", function() {
+                d3.select("#tooltip")
+                  .style("left", (d3.event.pageX + 20) + "px")
+                  .style("top", (d3.event.pageY - 20) + "px")
+                  .select("p")
+                  .text("Only a 22% increase");
             
             d3.select("#tooltip")
               .classed("hidden", false)
@@ -138,6 +281,8 @@ var setup = function(array5D)
     
     fifa(array5D);
     totalV(array5D);
+    inter(array5D);
+    eSpo(array5D);
 
     var cScale = d3.scaleOrdinal(d3.schemeTableau10)
     
@@ -165,15 +310,6 @@ var setup = function(array5D)
     drawValue3(array5D, xScale, yScale, cScale);
     drawValue4(array5D, xScale, yScale, cScale);
     drawValue5(array5D, xScale, yScale, cScale);
-    
-    
-    svg.append("circle")
-        .attr("class", "circle")
-        .attr("cx", 50)
-        .attr("cy", 562)
-        .attr("r", 5)
-        .attr("fill", "purple");
-        
 }
 
 var drawLegend = function(array5D, cScale){
