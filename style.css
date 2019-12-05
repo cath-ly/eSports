@@ -41,3 +41,7 @@ body{
     font-family: 'IBM Plex Sans', sans-serif;
     background-color: #ECF8F8;
 }
+
+svg{
+    stroke-width: 10px;
+}

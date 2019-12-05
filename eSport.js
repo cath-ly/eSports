@@ -25,7 +25,7 @@ var fifa = function(d){
            .attr("class", "circle")
            .attr("cx", 287)
            .attr("cy", 642)
-           .attr("r", 5)
+           .attr("r", 6)
            .attr("fill", "black")
       .on("mouseover", function(d) {
         d3.select("#tooltip")
@@ -45,7 +45,7 @@ var fifa = function(d){
         .attr("class", "circle")
         .attr("cx", 760)
         .attr("cy", 630)
-        .attr("r", 5)
+        .attr("r", 6)
         .attr("fill", "black")
         .on("mouseover", function(d) {
         d3.select("#tooltip")
@@ -65,7 +65,7 @@ var fifa = function(d){
         .attr("class", "circle")
         .attr("cx", 992)
         .attr("cy", 435)
-        .attr("r", 5)
+        .attr("r", 6)
         .attr("fill", "black")
         .on("mouseover", function() {
         d3.select("#tooltip")
@@ -97,7 +97,7 @@ var inter = function(po){
             .attr("class", "circle")
             .attr("cx", 54)
             .attr("cy", 562)
-            .attr("r", 5)
+            .attr("r", 6)
             .attr("fill", "purple")
             .on("mouseover", function() {
                 d3.select("#tooltip")
@@ -118,7 +118,7 @@ var inter = function(po){
             .attr("class", "circle")
             .attr("cx", 287)
             .attr("cy", 490)
-            .attr("r", 5)
+            .attr("r", 6)
             .attr("fill", "purple")
             .on("mouseover", function() {
                 d3.select("#tooltip")
@@ -139,7 +139,7 @@ var inter = function(po){
             .attr("class", "circle")
             .attr("cx", 1230)
             .attr("cy", 335)
-            .attr("r", 5)
+            .attr("r", 6)
             .attr("fill", "purple")
             .on("mouseover", function() {
                 d3.select("#tooltip")
@@ -172,8 +172,8 @@ var totalV = function(tot){
             .attr("class", "circle")
             .attr("cx", 760)
             .attr("cy", 430)
-            .attr("r", 5)
-            .attr("fill", "red")
+            .attr("r", 6)
+            .attr("fill", "purple")
             .on("mouseover", function() {
                 d3.select("#tooltip")
                   .style("left", (d3.event.pageX + 20) + "px")
@@ -205,7 +205,7 @@ var eSpo = function(e){
             .attr("class", "circle")
             .attr("cx", 287)
             .attr("cy", 490)
-            .attr("r", 5)
+            .attr("r", 6)
             .attr("fill", "green")
             .on("mouseover", function() {
                 d3.select("#tooltip")
@@ -213,6 +213,48 @@ var eSpo = function(e){
                   .style("top", (d3.event.pageY - 20) + "px")
                   .select("p")
                   .text("Approximate increase of 100%");
+            
+            d3.select("#tooltip")
+              .classed("hidden", false)
+         })
+        .on("mouseout", function(){
+            d3.select("#tooltip")
+              .classed("hidden", true)
+        });
+        
+        svg.append("circle")
+            .attr("class", "circle")
+            .attr("cx", 760)
+            .attr("cy", 310)
+            .attr("r", 6)
+            .attr("fill", "green")
+            .on("mouseover", function() {
+                d3.select("#tooltip")
+                  .style("left", (d3.event.pageX + 20) + "px")
+                  .style("top", (d3.event.pageY - 20) + "px")
+                  .select("p")
+                  .text("As years go by growth slope increases");
+            
+            d3.select("#tooltip")
+              .classed("hidden", false)
+         })
+        .on("mouseout", function(){
+            d3.select("#tooltip")
+              .classed("hidden", true)
+        });
+        
+        svg.append("circle")
+            .attr("class", "circle")
+            .attr("cx", 1230)
+            .attr("cy", 70)
+            .attr("r", 6)
+            .attr("fill", "green")
+            .on("mouseover", function() {
+                d3.select("#tooltip")
+                  .style("left", (d3.event.pageX - 220) + "px")
+                  .style("top", (d3.event.pageY + 15) + "px")
+                  .select("p")
+                  .text("From 2014 to 2019 has jumped to 469% increase!");
             
             d3.select("#tooltip")
               .classed("hidden", false)
@@ -238,7 +280,7 @@ var spot = function(sp){
             .attr("class", "circle")
             .attr("cx", 1230)
             .attr("cy", 541)
-            .attr("r", 5)
+            .attr("r", 6)
             .attr("fill", "hotpink")
             .on("mouseover", function() {
                 d3.select("#tooltip")
@@ -411,7 +453,7 @@ var drawValue1 = function(array5D, xScale, yScale, cScale){
         })
         .attr("fill", "none")
         .attr("stroke", "steelblue")
-        .attr("stroke-width", 3)
+        .attr("stroke-width", 5)
         .attr("d", d3.line()
           .x(function(d){
             return xScale(d.Year)
@@ -442,7 +484,7 @@ var drawValue2 = function(array5D, xScale, yScale, cScale){
         .datum(array5D)
         .attr("fill", "none")
         .attr("stroke", "red")
-        .attr("stroke-width", 3)
+        .attr("stroke-width", 5)
         .attr("d", d3.line()
           .x(function(d){
             return xScale(d.Year)
@@ -459,7 +501,7 @@ var drawValue3 = function(array5D, xScale, yScale, cScale){
         .datum(array5D)
         .attr("fill", "none")
         .attr("stroke", "purple")
-        .attr("stroke-width", 3)
+        .attr("stroke-width", 5)
         .attr("d", d3.line()
           .x(function(d){
             return xScale(d.Year)
@@ -476,7 +518,7 @@ var drawValue4 = function(array5D, xScale, yScale, cScale){
         .datum(array5D)
         .attr("fill", "none")
         .attr("stroke", "green")
-        .attr("stroke-width", 3)
+        .attr("stroke-width", 5)
         .attr("d", d3.line()
           .x(function(d){
             return xScale(d.Year)
@@ -493,7 +535,7 @@ var drawValue5 = function(array5D, xScale, yScale, cScale){
         .datum(array5D)
         .attr("fill", "none")
         .attr("stroke", "hotpink")
-        .attr("stroke-width", 3)
+        .attr("stroke-width", 5)
         .attr("d", d3.line()
           .x(function(d){
             return xScale(d.Year)
@@ -522,7 +564,7 @@ var drawFifa = function(array5D, xScale, yScale, cScale){
         .datum(array5D)
         .attr("fill", "none")
         .attr("stroke", "hotpink")
-        .attr("stroke-width", 3)
+        .attr("stroke-width", 5)
         .attr("d", d3.line()
           .x(function(d){
             return xScale(d.Year)
