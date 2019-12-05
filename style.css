@@ -32,9 +32,12 @@ h1{
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+    border: 10px solid;
+   /* padding: 15px; */
+    border-style: double; 
 }
 
-body{
+body{ 
     font-family: 'IBM Plex Sans', sans-serif;
     background-color: #ECF8F8;
 }
