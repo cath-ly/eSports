@@ -171,9 +171,9 @@ var totalV = function(tot){
         svg.append("circle")
             .attr("class", "circle")
             .attr("cx", 760)
-            .attr("cy", 430)
+            .attr("cy", 495)
             .attr("r", 6)
-            .attr("fill", "purple")
+            .attr("fill", "red")
             .on("mouseover", function() {
                 d3.select("#tooltip")
                   .style("left", (d3.event.pageX + 20) + "px")
